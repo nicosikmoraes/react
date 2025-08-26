@@ -7,12 +7,28 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Login() {
   const [username, setUsername] = useState("");
 
   const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
+
+  useEffect(() => {
+    if (password === passwordConfirmation) {
+      setPasswordIsValid(validPassword(password));
+    } else {
+      setPasswordIsValid(false);
+    }
+  }, [password, passwordConfirmation]);
+
+  function validPassword(p: string): boolean {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/;
+    return regex.test(p);
+  }
 
   const handlePress = () => {
     if (username === "" || password === "") {
@@ -23,6 +39,7 @@ export default function Login() {
     console.log("Username: ", username, " Password: ", password);
     setPassword("");
     setUsername("");
+    setPasswordConfirmation("");
   };
 
   return (
@@ -39,8 +56,28 @@ export default function Login() {
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry={true}
+        secureTextEntry
       />
+
+      <View>
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm Password"
+          value={passwordConfirmation}
+          onChangeText={setPasswordConfirmation}
+          secureTextEntry
+        />
+
+        <TouchableOpacity
+          style={styles.reset_btn}
+          disabled={!passwordIsValid}
+          onPress={() => {
+            alert("ola");
+          }}
+        >
+          <Text style={styles.reset_text}>Resetar Senha</Text>
+        </TouchableOpacity>
+      </View>
 
       <Pressable
         style={({ pressed }) => [styles.btn, pressed && styles.press_btn]}
@@ -82,5 +119,18 @@ const styles = StyleSheet.create({
     color: "#494949ff",
     transform: [{ scale: 0.96 }],
     opacity: 0.9,
+  },
+
+  reset_btn: {
+    backgroundColor: "transparent",
+  },
+
+  reset_text: {
+    color: "#666",
+    //textDecorationLine: "underline",
+    fontSize: 12,
+    fontWeight: 700,
+    marginLeft: 4,
+    marginTop: 2,
   },
 });

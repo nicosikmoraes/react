@@ -42,6 +42,11 @@ export default function Login() {
     setPasswordConfirmation("");
   };
 
+  const handleResetPassword = () => {
+    setPassword("");
+    setPasswordConfirmation("");
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -75,7 +80,9 @@ export default function Login() {
             alert("ola");
           }}
         >
-          <Text style={styles.reset_text}>Resetar Senha</Text>
+          <Text style={styles.reset_text} onPress={handleResetPassword}>
+            Resetar Senha
+          </Text>
         </TouchableOpacity>
       </View>
 

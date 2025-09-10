@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import Logo from './Logo'
-import Actions from './Actions'
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import Logo from './Logo';
+import Actions from './Actions';
 
 export default function Header() {
   return (
@@ -10,21 +10,18 @@ export default function Header() {
 
       <Actions />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container_header: {
     position: 'absolute',
     top: 0,
-    borderBottomColor: 'white',
-    borderBottomWidth: 1,
     width: '100%',
     display: 'flex',
-    flexDirection: "row",
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 50,
-    padding: 8
+    padding: 8,
   },
-})
+});

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     title: {
         color: '#fff',
         fontWeight: 900,
-        fontSize: 16
+        fontSize: 17
     },
 
     image_container: {

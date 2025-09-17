@@ -8,7 +8,7 @@ type imageProps = {
 export default function ImageShow({image_url}: imageProps) {
   return (
     <Image
-    style={{width: 100, height: 140}}
+    style={{width: 100, height: 150}}
         source={{
             uri: image_url
         }}

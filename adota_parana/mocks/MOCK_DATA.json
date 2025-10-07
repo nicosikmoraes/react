@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Bobo Marley",
+    "specie": "Dog",
+    "img": "boboMarley.jpg"
+  },
+  {
+    "name": "Garfield",
+    "specie": "Cat",
+    "img": "garfield.jpg"
+  },
+  {
+    "name": "Nemo",
+    "specie": "Fish",
+    "img": "nemo.jpg"
+  },
+  {
+    "name": "Pataco",
+    "specie": "Dog",
+    "img": "pataco.jpg"
+  }
+]

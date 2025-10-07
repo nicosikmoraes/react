@@ -1,5 +1,5 @@
-import { StatusBar, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import { theme } from '@/constants/theme';
 
 interface ScreenWrapperProps {
@@ -9,19 +9,19 @@ interface ScreenWrapperProps {
 export default function ScreenWrapper({ children }: ScreenWrapperProps) {
   return (
     <View style={styles.container}>
-        <StatusBar barStyle={'dark-content'} />
+      <StatusBar barStyle={'dark-content'} />
 
-        {children}
+      {children}
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
- container: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: StatusBar.currentHeight,
-    backgroundColor: theme.backgroundColor
- } 
-})
+    backgroundColor: theme.backgroundColor,
+  },
+});

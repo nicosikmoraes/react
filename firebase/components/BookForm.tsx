@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Text, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  StyleSheet,
+  Alert,
+  Pressable,
+} from "react-native";
 import { db } from "../firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
@@ -9,17 +17,13 @@ export default function BookForm() {
   const [price, setPrice] = useState<string>("");
 
   const handleAddBook = async () => {
+    console.log("DB conectado:", db);
     if (!title || !author || !price) {
-      Alert.alert("Preencha todos os campos");
+      alert("Preencha todos os campos");
       return;
     }
 
     const priceNumber = parseFloat(price);
-
-    if (isNaN(priceNumber)) {
-      Alert.alert("Preço inválido");
-      return;
-    }
 
     try {
       await addDoc(collection(db, "books"), {
@@ -27,18 +31,19 @@ export default function BookForm() {
         author,
         price: priceNumber,
       });
-      Alert.alert("Livro adicionado com sucesso!");
+      alert("Livro adicionado com sucesso!");
       setTitle("");
       setAuthor("");
       setPrice("");
     } catch (error) {
       console.error("Erro ao adicionar livro: ", error);
-      Alert.alert("Erro ao adicionar livro");
+      alert("Erro ao adicionar livro");
     }
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Adicione um livro</Text>
       <Text style={styles.label}>Título:</Text>
       <TextInput
         style={styles.input}
@@ -66,7 +71,9 @@ export default function BookForm() {
         keyboardType="numeric"
       />
 
-      <Button title="Adicionar Livro" onPress={handleAddBook} />
+      <Pressable style={styles.btn} onPress={handleAddBook}>
+        <Text style={styles.btn_text}> Adicionar Livro </Text>
+      </Pressable>
     </View>
   );
 }
@@ -83,8 +90,28 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "orange",
     borderRadius: 5,
     padding: 10,
+  },
+  btn: {
+    marginTop: 20,
+    backgroundColor: "orange",
+    height: 35,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    cursor: "pointer",
+  },
+  btn_text: {
+    color: "white",
+    fontWeight: 800,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: 700,
+    textAlign: "center",
+    color: "orange",
   },
 });

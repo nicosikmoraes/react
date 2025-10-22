@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import BookForm from "@/components/BookForm";
 import ScreenWrapper from "@/components/ScreenWrapper";
-import Home from "@/components/home";
-export default function index() {
+import BookForm from "@/components/BookForm";
+
+export default function BookView() {
   return (
     <ScreenWrapper>
-      <Home />
+      <BookForm />
     </ScreenWrapper>
   );
 }

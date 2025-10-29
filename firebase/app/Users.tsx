@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useState } from "react";
+import ScreenWrapper from "@/components/ScreenWrapper";
+import UserAuthentication from "@/components/UserAuthentication";
 
 export default function UserView() {
   return (
-    <View>
-      <Text>UserForm</Text>
-    </View>
+    <ScreenWrapper>
+      <UserAuthentication />
+    </ScreenWrapper>
   );
 }
 

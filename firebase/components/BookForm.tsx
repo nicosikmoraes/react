@@ -1,23 +1,45 @@
-import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  Button,
-  Text,
-  StyleSheet,
-  Alert,
-  Pressable,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, TextInput, Text, StyleSheet, Alert } from "react-native";
 import { db } from "../firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
+import NormalButton from "./shared/NormalButton";
 
-export default function BookForm() {
+type BookFormProps = {
+  bookId?: string; // se for editar, passamos o id do livro
+};
+
+export default function BookForm({ bookId }: BookFormProps) {
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
   const [price, setPrice] = useState<string>("");
 
-  const handleAddBook = async () => {
-    console.log("DB conectado:", db);
+  // Se bookId existir, carregamos os dados do livro
+  useEffect(() => {
+    if (!bookId) return;
+
+    const loadBook = async () => {
+      try {
+        const bookRef = doc(db, "books", bookId);
+        const bookSnap = await getDoc(bookRef);
+
+        if (bookSnap.exists()) {
+          const data = bookSnap.data();
+          setTitle(data.title);
+          setAuthor(data.author);
+          setPrice(String(data.price));
+        } else {
+          alert("Livro não encontrado");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao carregar livro");
+      }
+    };
+
+    loadBook();
+  }, [bookId]);
+
+  const handleSaveBook = async () => {
     if (!title || !author || !price) {
       alert("Preencha todos os campos");
       return;
@@ -26,24 +48,35 @@ export default function BookForm() {
     const priceNumber = parseFloat(price);
 
     try {
-      await addDoc(collection(db, "books"), {
-        title,
-        author,
-        price: priceNumber,
-      });
-      alert("Livro adicionado com sucesso!");
-      setTitle("");
-      setAuthor("");
-      setPrice("");
+      if (bookId) {
+        // Atualizar livro existente
+        const bookRef = doc(db, "books", bookId);
+        await updateDoc(bookRef, { title, author, price: priceNumber });
+        alert("Livro atualizado!");
+      } else {
+        // Adicionar novo livro
+        await addDoc(collection(db, "books"), {
+          title,
+          author,
+          price: priceNumber,
+        });
+        alert("Livro adicionado!");
+        setTitle("");
+        setAuthor("");
+        setPrice("");
+      }
     } catch (error) {
-      console.error("Erro ao adicionar livro: ", error);
-      alert("Erro ao adicionar livro");
+      console.error("Erro ao salvar livro: ", error);
+      alert("Erro ao salvar livro");
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Adicione um livro</Text>
+      <Text style={styles.title}>
+        {bookId ? "Editar Livro" : "Adicionar Livro"}
+      </Text>
+
       <Text style={styles.label}>Título:</Text>
       <TextInput
         style={styles.input}
@@ -71,9 +104,10 @@ export default function BookForm() {
         keyboardType="numeric"
       />
 
-      <Pressable style={styles.btn} onPress={handleAddBook}>
-        <Text style={styles.btn_text}> Adicionar Livro </Text>
-      </Pressable>
+      <NormalButton
+        title={bookId ? "Atualizar Livro" : "Adicionar Livro"}
+        onPress={handleSaveBook}
+      />
     </View>
   );
 }
@@ -94,23 +128,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
   },
-  btn: {
-    marginTop: 20,
-    backgroundColor: "orange",
-    height: 35,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
-    cursor: "pointer",
-  },
-  btn_text: {
-    color: "white",
-    fontWeight: 800,
-  },
   title: {
     fontSize: 26,
-    fontWeight: 700,
+    fontWeight: "700",
     textAlign: "center",
     color: "orange",
   },

@@ -9,6 +9,7 @@ export default function Home() {
 
       <RouteButton title="Adicionar Usuário" route="/Users" />
       <RouteButton title="Adicionar Livro" route="/Books" />
+      <RouteButton title="Ver os Livro" route="/ShowBooks" />
     </View>
   );
 }

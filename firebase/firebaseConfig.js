@@ -1,8 +1,9 @@
 // firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // ✅ importa Auth
 
-// 🔥 Configurações do seu projeto Firebase
+// Configurações do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCGr5bBPXmvvnpTiq4ncF7kosHtrny-ulc",
   authDomain: "fir-10bab.firebaseapp.com",
@@ -12,10 +13,13 @@ const firebaseConfig = {
   appId: "1:40790430213:web:6d81206137840de0c4026c",
 };
 
-// ✅ Inicializa o app
+// Inicializa o app
 const app = initializeApp(firebaseConfig);
 
-// ✅ Inicializa o Firestore
+// Inicializa o Firestore
 const db = getFirestore(app);
 
-export { db };
+// Inicializa o Auth
+const auth = getAuth(app); // ✅ essencial para autenticação
+
+export { db, auth };

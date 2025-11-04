@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, TextInput, Text, StyleSheet, Alert } from "react-native";
 import { db } from "../firebaseConfig";
 import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import NormalButton from "./shared/NormalButton";
+import { ThemeContext } from "@/context/ThemeContext";
 
 type BookFormProps = {
   bookId?: string; // se for editar, passamos o id do livro
 };
 
 export default function BookForm({ bookId }: BookFormProps) {
+  const { colors } = useContext(ThemeContext);
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
   const [price, setPrice] = useState<string>("");
@@ -73,13 +75,13 @@ export default function BookForm({ bookId }: BookFormProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
+      <Text style={[styles.title, { color: colors.background }]}>
         {bookId ? "Editar Livro" : "Adicionar Livro"}
       </Text>
 
       <Text style={styles.label}>Título:</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.background }]}
         value={title}
         onChangeText={setTitle}
         placeholder="Ex: Dom Casmurro"
@@ -88,7 +90,7 @@ export default function BookForm({ bookId }: BookFormProps) {
 
       <Text style={styles.label}>Autor:</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.background }]}
         value={author}
         onChangeText={setAuthor}
         placeholder="Ex: Machado de Assis"
@@ -97,7 +99,7 @@ export default function BookForm({ bookId }: BookFormProps) {
 
       <Text style={styles.label}>Preço:</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.background }]}
         value={price}
         onChangeText={setPrice}
         placeholder="Ex: 29.90"
@@ -124,7 +126,6 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "orange",
     borderRadius: 5,
     padding: 10,
   },
@@ -132,6 +133,5 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "700",
     textAlign: "center",
-    color: "orange",
   },
 });

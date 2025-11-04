@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, FlatList, StyleSheet, Alert } from "react-native";
 import { db } from "../../firebaseConfig";
 import { collection, onSnapshot } from "firebase/firestore";
 import NormalButton from "../shared/NormalButton";
 import { router } from "expo-router";
+import { ThemeContext } from "@/context/ThemeContext";
 
 type Book = {
   id: string;
@@ -13,12 +14,12 @@ type Book = {
 };
 
 export default function index({ navigation }: any) {
+  const { colors } = useContext(ThemeContext);
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
     const booksRef = collection(db, "books");
 
-    // Observa os livros em tempo real
     const unsubscribe = onSnapshot(
       booksRef,
       (snapshot) => {
@@ -38,7 +39,7 @@ export default function index({ navigation }: any) {
   }, []);
 
   const renderItem = ({ item }: { item: Book }) => (
-    <View style={styles.bookItem}>
+    <View style={[styles.bookItem, { borderColor: colors.background }]}>
       <View>
         <Text style={styles.title}>{item.title}</Text>
         <Text>Autor: {item.author}</Text>
@@ -56,7 +57,9 @@ export default function index({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Lista de Livros</Text>
+      <Text style={[styles.header, { color: colors.background }]}>
+        Lista de Livros
+      </Text>
 
       {books.length === 0 ? (
         <Text style={styles.noBooks}>Nenhum livro encontrado.</Text>
@@ -91,7 +94,6 @@ const styles = StyleSheet.create({
   },
   bookItem: {
     borderWidth: 1,
-    borderColor: "orange",
     borderRadius: 8,
     padding: 15,
     marginBottom: 15,

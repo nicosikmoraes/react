@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import RouteButton from "../shared/RouteButton";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export default function Home() {
+  const { colors } = useContext(ThemeContext);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>FIREBASE</Text>
+      <Text style={[styles.title, { color: colors.background }]}>FIREBASE</Text>
 
       <RouteButton title="Adicionar Usuário" route="/Users" />
       <RouteButton title="Adicionar Livro" route="/Books" />
@@ -26,6 +29,5 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 700,
     textAlign: "center",
-    color: "orange",
   },
 });

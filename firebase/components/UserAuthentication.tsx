@@ -1,10 +1,12 @@
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { useAuth } from "../hooks/useAuth";
 import NormalButton from "@/components/shared/NormalButton";
+import { ThemeContext } from "@/context/ThemeContext";
 
 export default function UserAuthentication() {
+  const { colors } = useContext(ThemeContext);
   const { registerUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,13 +36,15 @@ export default function UserAuthentication() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Criar Conta</Text>
+      <Text style={[styles.title, { color: colors.background }]}>
+        Criar Conta
+      </Text>
 
       <TextInput
         placeholder="E-mail"
         value={email}
         onChangeText={setEmail}
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.background }]}
         keyboardType="email-address"
         autoCapitalize="none"
       />
@@ -49,7 +53,7 @@ export default function UserAuthentication() {
         placeholder="Senha"
         value={password}
         onChangeText={setPassword}
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.background }]}
         secureTextEntry
       />
 
@@ -57,7 +61,7 @@ export default function UserAuthentication() {
         placeholder="Confirmar Senha"
         value={confirmPassword}
         onChangeText={setConfirmPassword}
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.background }]}
         secureTextEntry
       />
 
@@ -82,7 +86,6 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "orange",
     padding: 12,
     borderRadius: 8,
     marginBottom: 12,

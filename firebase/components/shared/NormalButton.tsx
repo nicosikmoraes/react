@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "@/context/ThemeContext";
 
 type ButtonProps = {
   title: string;
@@ -7,8 +8,13 @@ type ButtonProps = {
 };
 
 export default function NormalButton({ title, onPress }: ButtonProps) {
+  const { colors } = useContext(ThemeContext);
+
   return (
-    <Pressable style={styles.btn} onPress={onPress}>
+    <Pressable
+      style={[styles.btn, { backgroundColor: colors.background }]}
+      onPress={onPress}
+    >
       <Text style={styles.btn_title}>{title}</Text>
     </Pressable>
   );
@@ -16,7 +22,6 @@ export default function NormalButton({ title, onPress }: ButtonProps) {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: "orange",
     height: 40,
     width: 220,
     display: "flex",

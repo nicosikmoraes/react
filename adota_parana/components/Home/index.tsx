@@ -19,11 +19,7 @@ export default function Home() {
       <Title text={"Adota Paraná"} fontSize={45} />
 
       <View style={styles.btn_container}>
-        <NavigationButton
-          color={"orange"}
-          text={"Register"}
-          route={"/Register"}
-        />
+        <NavigationButton color={"orange"} text={"Login"} route={"/Login"} />
         <NavigationButton color={"orange"} text={"Pets"} route={"/Pets"} />
       </View>
     </View>

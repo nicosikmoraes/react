@@ -5,11 +5,12 @@ import { usePathname } from "expo-router";
 
 export default function Form() {
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [usernameIsValid, setUsernameIsValid] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === "/Register") {
+    if (pathname === "/Login") {
       setUsername("");
     }
   }, [pathname]);

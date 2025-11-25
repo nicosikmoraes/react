@@ -7,7 +7,7 @@ import {
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
 
-type AppRoute = "/" | "/Pets" | "/Register";
+type AppRoute = "/" | "/Pets" | "/Login";
 
 type NavigationButtonProps = {
   color: string;

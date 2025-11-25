@@ -3,10 +3,10 @@ import React from "react";
 import Title from "../Shared/Title";
 import Form from "./Form";
 
-export default function Register() {
+export default function Login() {
   return (
     <View style={styles.container}>
-      <Title text="Register" fontSize={45} />
+      <Title text="Login" fontSize={45} />
 
       <Form />
     </View>

@@ -15,6 +15,7 @@ type NavigationButtonProps = {
   route: AppRoute;
   params?: Record<string, any>;
   disabled?: boolean;
+  testID?: string;
 };
 
 export default function NavigationButton({
@@ -23,6 +24,7 @@ export default function NavigationButton({
   route,
   params,
   disabled = false,
+  testID,
 }: NavigationButtonProps) {
   const router = useRouter();
 
@@ -42,8 +44,9 @@ export default function NavigationButton({
       ]}
       onPress={() => router.push({ pathname: route, params })}
       disabled={disabled}
+      testID={testID}
     >
-      {text}
+      <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
 }
@@ -52,11 +55,13 @@ const styles = StyleSheet.create({
   btn: {
     width: 200,
     height: 50,
-    color: "white",
-    textAlign: "center",
     justifyContent: "center",
-    fontFamily: "Montserrat_400Regular",
-    fontWeight: 700,
+    alignItems: "center", // IMPORTANTE para centralizar o Text
     borderRadius: 12,
+  },
+  text: {
+    color: "white",
+    fontFamily: "Montserrat_700Bold",
+    fontSize: 20,
   },
 });

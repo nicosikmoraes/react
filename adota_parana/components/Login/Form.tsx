@@ -30,6 +30,7 @@ export default function Form() {
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
+        testID="username-input"
       />
 
       <NavigationButton
@@ -38,6 +39,7 @@ export default function Form() {
         route="/Pets"
         disabled={usernameIsValid}
         params={{ username: username }}
+        testID="send-button"
       />
     </View>
   );

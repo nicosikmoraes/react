@@ -51,7 +51,11 @@ export default function Pets({ name, specie, url }: PetsProps) {
         resizeMode="cover"
       />
 
-      <TouchableOpacity style={styles.text_container} onPress={handlePress}>
+      <TouchableOpacity
+        style={styles.text_container}
+        onPress={handlePress}
+        testID="show-pets-button"
+      >
         <Text style={styles.mainText}>{name}</Text>
         <Text style={styles.minorText}>{specie}</Text>
       </TouchableOpacity>

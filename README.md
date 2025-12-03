@@ -1,4 +1,4 @@
-## Diferença entre testes unitários e testes E2E:
+# Diferença entre testes unitários e testes E2E:
 
 Os testes unitários servem para verificar partes pequenas e funções isoladas do sistema, já os testes E2E simulam a interação real do usuário percorrendo a aplicação do começo ao fim.
 
@@ -6,7 +6,7 @@ Os testes unitários servem para verificar partes pequenas e funções isoladas 
 
 `node` versão 20 ou superior 
 
-# Comando para instalar
+## Comando para instalar
 
 `npm install -g yarn`
 

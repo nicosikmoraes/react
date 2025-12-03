@@ -21,7 +21,7 @@ Os testes unitários servem para verificar partes pequenas e funções isoladas 
 ## Comando para rodar os testes E2E
 
 - O ambiente deve ser expo web
-- Inicie o expo na wev `yarn expo start --web`
+- Inicie o expo na web `yarn expo start --web`
 - Em outro terminal rode `yarn cypress open`, para abrir a interface dos teste
     - Nesse caso clique em um dos teste e rode.
 - Modo headless `yarn cypress run` 
